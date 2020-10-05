@@ -1,103 +1,83 @@
 
-# Module 3 Final Project
+# Maintaining Functioning Wells in Tanzania
+**Author**: Lauren Esser
+
+The contents of this repository detail an analysis of the module three project. This analysis is detailed in hopes of making the work accessible and replicable. 
 
 
-## Introduction
+## Business Problem
+Using data from Taarifa and the Tanzanian Ministry of Water I created a model that uses given factors in order to predict which pumps are functional, which need repair, and which pumps are no longer working. By creating this model Tanzanian Ministry of Water may use it to help keep potable water available in their communities. 
 
-In this lesson, we'll review all the guidelines and specifications for the final project for Module 3.
+## Data
+> Information taken from drivendata.org. Click [here](https://www.drivendata.org/competitions/7/pump-it-up-data-mining-the-water-table/page/25/#features_list) for access
+
+**Summary of each column**
+- amount_tsh: Total static head (amount water available to waterpoint)
+- date_recorded: The date the row was entered
+- funder: Who funded the well
+- gps_height: Altitude of the well
+- installer: Organization that installed the well
+- longitude: GPS coordinate
+- latitude: GPS coordinate
+- wpt_name: Name of the waterpoint if there is one
+- num_private: *no information*
+- basin: Geographic water basin
+- subvillage: Geographic location
+- region: Geographic location
+- region_code: Geographic location (coded)
+- district_code: Geographic location (coded)
+- lga: Geographic location
+- ward: Geographic location
+- population: Population around the well
+- public_meeting: True/False
+- recorded_by: Group entering this row of data
+- scheme_management: Who operates the waterpoint
+- scheme_name: Who operates the waterpoint
+- permit: If the waterpoint is permitted
+- construction_year: Year the waterpoint was constructed
+- extraction_type: The kind of extraction the waterpoint uses
+- extraction_type_group: The kind of extraction the waterpoint uses
+- extraction_type_class: The kind of extraction the waterpoint uses
+- management: How the waterpoint is managed
+- management_group: How the waterpoint is managed
+- payment: What the water costs
+- payment_type: What the water costs
+- water_quality: The quality of the water
+- quality_group: The quality of the water
+- quantity: The quantity of water
+- quantity_group: The quantity of water
+- source: The source of the water
+- source_type: The source of the water
+- source_class: The source of the water
+- waterpoint_type: The kind of waterpoint
+- waterpoint_type_group: The kind of waterpoint
+
+## Methods
+### Obtain:
+Data was obtained from Taarifa and the Tanzanian Ministry of Water. In the Obtain section of my notebook I uploaded two csv's of data using Pandas. I then took time to observe the number of unique groups per data frame and inspect information. The data labels table listed the id and status_group of the wells. (Functional, Functional, Needs Repair, Non-Functional. The data values table had 49 different columns containing 3 floats, 7 int, and 30 object columns. 
+
+### Scrub:
+In the Scrub section of my notebook I took care of cleaning the data and observing which columns were actually needed to create my models. When reading over the column descriptions (given above) I noticed that many columns covered the exact same material. Therefore I went through and looked at null values, value_counts, and how specific each column was in order to determine which of the repetitive columns were kept. During this section I dropped scheme_name, waterpoint_type, source_type, source_class, quantity_group, quality_group, payment, date_recorded, management, extraction_type, region_code, district_code, and extraction_type_class. While that looks like a high number of columns, the columns that were left covered the same information as those that were dropped from the dataset. Once I dropped unneeded columns I dove deeper into other columns. Below I have listed other action points I took during the Scrub section of my Jupyter notebook:
+
+> Construction year had 20,709 water pumps without a year listed. I assumed these were built before they began recording construction date and set these all to 1959. 
+> Public Meeting had nulls so I went with the majority and assumed that wells were in public meeting locations. 
+> Population I replaced 0 with the median of all of the water pumps. 
+> To take care of the remaining nulls I replaced subvillage and scheme_management nulls with "Unknown".
+> Permit had two groups True and 25.0, I assumed 25.0 meant False and switched 25.0 to read False
+
+### Explore:
+During the Explore section of my notebook I took time to create visuals in order to help me understand my remaining dataset better. Within this time I also scaled my numerial columns, I did not end up using my scaled columns since the Models I created do not call for scaling. Next, I took a look at my categorical columns. Here I realized that if I used pd.get_dummies on all my categorical columns that my data set would be way too large. Therefore I dropped additional categorical columns that I either had similar information in another column, or I thought did not play a role in the functionality of the well. Example: Funder. Whomever raised the money had no role in inserting or maintaining the well so I was comfortable dropping this column. Installer column is one that I found to be very important, but there were over 100 installers listed. I made the decision to keep any installer that built over 1000 wells and to group the remainder in an "Unknown" group. Once taking this step I used pd.get_dummies on my categorical columns in order to make a new dataframe. The last steps I took in Explore was to perform a LabelEncoder on my dependent group and then train_test_split the dataset. 
+
+### Model:
+
+### Interpret
 
 
-## Objectives
-
-- Understand all required aspects of the Final Project for Module 3
-- Understand all required deliverables
-- Understand what constitutes a successful project
-
-## Final Project Summary
-
-Congratulations! You've made it through another _intense_ module, and now you're ready to show off your newfound Machine Learning skills!
-
-![awesome](https://raw.githubusercontent.com/learn-co-curriculum/dsc-mod-3-project-v2-1/master/smart.gif)
-
-All that remains for Module 3 is to complete the final project!
-
-## The Project
-
-The main goal of this project is to create a classification model. For this project you have the choice to either:
-
-- choose a data set from a curated list
-- choose your own data set _outside_ of the curated list. 
-
-The data guidelines for either option are shown below
-
-For this project, you're going to select a dataset of your choosing and create a classification model. You'll start by identifying a problem you can solve with classification, and then identify a dataset. You'll then use everything you've learned about Data Science and Machine Learning thus far to source a dataset, preprocess and explore it, and then build and interpret a classification model that answers your chosen question.
-
-### a. Choosing the data from a curated list
-
-You are allowed to select one of the four data sets described below. Each comes with its own advantages and disadvantages, and, of course, its own associated business problem and stakeholders. It may be desirable to flesh out your understanding of the audience or the business proposition a little more than sketched out here. If you select one of these four data sets, you **need no further approval from your instructor**.
 
 
-1) [Chicago Car Crash Data](https://data.cityofchicago.org/Transportation/Traffic-Crashes-Crashes/85ca-t3if). Note this links also to [Vehicle Data](https://data.cityofchicago.org/Transportation/Traffic-Crashes-Vehicles/68nd-jvt3) and to [Driver/Passenger Data](https://data.cityofchicago.org/Transportation/Traffic-Crashes-People/u6pd-qa9d).
-
-Build a classifier to predict the primary contributory cause of a car accident, given information about the car, the people in the car, the road conditions etc. You might imagine your audience as a Vehicle Safety Board who's interested in reducing traffic accidents, or as the City of Chicago who's interested in becoming aware of any interesting patterns. Note that there is a **multi-class** classification problem. You will almost certainly want to bin or trim or otherwise limit the number of target categories on which you ultimately predict. Note e.g. that some primary contributory causes have very few samples.
-
-2) [Terry Stops Data](https://catalog.data.gov/dataset/terry-stops).
-In [*Terry v. Ohio*](https://www.oyez.org/cases/1967/67), a landmark Supreme Court case in 1967-8, the court found that a police officer was not in violation of the "unreasonable search and seizure" clause of the Fourth Amendment, even though he stopped and frisked a couple of suspects only because their behavior was suspicious. Thus was born the notion of "reasonable suspicion", according to which an agent of the police may e.g. temporarily detain a person, even in the absence of clearer evidence that would be required for full-blown arrests etc. Terry Stops are stops made of suspicious drivers.
-
-Build a classifier to predict whether an arrest was made after a Terry Stop, given information about the presence of weapons, the time of day of the call, etc. Note that this is a **binary** classification problem.
-
-Note that this dataset also includes information about gender and race. You **may** use this data as well. You may, e.g. pitch your project as an inquiry into whether race (of officer or of subject) plays a role in whether or not an arrest is made.
-
-If you **do** elect to make use of race or gender data, be aware that this can make your project a highly sensitive one; your discretion will be important, as well as your transparency about how you use the data and the ethical issues surrounding it.
-
-3) [Customer Churn Data](https://www.kaggle.com/becksddf/churn-in-telecoms-dataset)
-
-Build a classifier to predict whether a customer will ("soon") stop doing business with SyriaTel, a telecommunications company. Note that this is a **binary** classification problem.
-
-Most naturally, your audience here would be the telecom business itself, interested in losing money on customers who don't stick around very long. Are there any predictable patterns here?
-
-4) [Tanzanian Water Well Data](https://www.drivendata.org/competitions/7/pump-it-up-data-mining-the-water-table/page/23/) (*active competition*!)
-Tanzania, as a developing country, struggles with providing clean water to its population of over 57,000,000. There are many waterpoints already established in the country, but some are in need of repair while others have failed altogether.
-
-Build a classifier to predict the condition of a water well, using information about the sort of pump, when it was installed, etc. Note that this is a **ternary** classification problem.
 
 
-### b. Selecting a Data Set _Outside_ of the Curated List
 
-We encourage you to be very thoughtful when identifying your problem and selecting your data set--an overscoped project goal or a poor data set can quickly bring an otherwise promising project to a grinding halt. **If you are going to choose your own data set, you'll need to run it by your instructor for approval**.
-
-To help you select an appropriate data set for this project, we've set some guidelines:
-
-1. Your dataset should work for classification. The classification task can be either binary or multiclass, as long as it's a classification model.   
-
-2. Your dataset needs to be of sufficient complexity. Try to avoid picking an overly simple dataset. Try to avoid extremely small datasets, as well as the most common datasets like titanic, iris, MNIST, etc. We want to see all the steps of the Data Science Process in this project--it's okay if the dataset is mostly clean, but we expect to see some preprocessing and exploration. See the following section, **_Data Set Constraints_**, for more information on this.   
-
-3. On the other end of the spectrum, don't pick a problem that's too complex, either. Stick to problems that you have a clear idea of how you can use machine learning to solve it. For now, we recommend you stay away from overly complex problems in the domains of Natural Language Processing or Computer Vision--although those domains make use of Supervised Learning, they come with a lot of other special requirements and techniques that you don't know yet (but you'll learn soon!). If you're chosen problem feels like you've overscoped, then it probably is. If you aren't sure if your problem scope is appropriate, double check with your instructor!  
-
-#### Data Set Constraints
-
-When selecting a data set, be sure to take into consideration the following constraints:
-
-1. Your data set can't be one we've already worked with in any labs.
-2. Your data set should contain a minimum of 1000 rows.    
-3. Your data set should contain a minimum of 10 predictor columns, before any one-hot encoding is performed.   
-4. Your instructor must provide final approval on your data set.
-
-#### Problem First, or Data First?
-
-There are two ways that you can about getting started: **_Problem-First_** or **_Data-First_**.
-
-**_Problem-First_**: Start with a problem that you want to solve with classification, and then try to find the data you need to solve it.  If you can't find any data to solve your problem, then you should pick another problem.
-
-**_Data-First_**: Take a look at some of the most popular internet repositories of cool data sets we've listed below. If you find a data set that's particularly interesting for you, then it's totally okay to build your problem around that data set.
-
-There are plenty of amazing places that you can get your data from. We recommend you start looking at data sets in some of these resources first:
-
-* [UCI Machine Learning Datasets Repository](https://archive.ics.uci.edu/ml/datasets.html)
-* [Kaggle Datasets](https://www.kaggle.com/datasets)
-* [Awesome Datasets Repo on Github](https://github.com/awesomedata/awesome-public-datasets)
-* [New York City Open Data Portal](https://opendata.cityofnewyork.us/)
-* [Inside AirBNB ](http://insideairbnb.com/)
 
 
 ## The Deliverables
@@ -108,34 +88,11 @@ For online students, your completed project should contain the following four de
 
 2. An organized **README.md** file in the GitHub repository that describes the contents of the repository. This file should be the source of information for navigating through the repository. 
 
-3. A **_[Blog Post](https://github.com/learn-co-curriculum/dsc-welcome-blogging-v2-1)_**.
 
 4. An **_"Executive Summary" PowerPoint Presentation_** that gives a brief overview of your problem/dataset, and each step of the OSEMN process.
 
-Note: On-campus students may have different deliverables, please speak with your instructor.
 
 ### Jupyter Notebook Must-Haves
-
-For this project, your Jupyter Notebook should meet the following specifications:
-
-**_Organization/Code Cleanliness_**
-
-* The notebook should be well organized, easy to follow, and code is commented where appropriate.  
-    * Level Up: The notebook contains well-formatted, professional looking markdown cells explaining any substantial code. All functions have docstrings that act as professional-quality documentation.  
-* The notebook is written to technical audiences with a way to both understand your approach and reproduce your results. The target audience for this deliverable is other data scientists looking to validate your findings.  
-
-**_Process, Methodology, and Findings_**
-
-* Your notebook should contain a clear record of your process and methodology for exploring and preprocessing your data, building and tuning a model, and interpreting your results.
-* We recommend you use the OSEMN process to help organize your thoughts and stay on track.
-
-### Blog Post Must-Haves
-
-Refer back to the [Blogging Guidelines](https://github.com/learn-co-curriculum/dsc-welcome-blogging-v2-1) for the technical requirements and blog ideas.
-
-## The Process
-
-These steps are informed by Smart Vision's<sup>1</sup> description of the CRISP-DM process.
 
 ### 1. Business Understanding
 
@@ -179,12 +136,3 @@ In this case, your "deployment" comes in the form of the deliverables listed abo
  - "How confident are you in the predictive quality of the results?"
  - "What are some of the things that could cause the results to be wrong?"
 
-
-## Grading Rubric 
-
-Online students can find a PDF of the grading rubric for the project [here](https://github.com/learn-co-curriculum/dsc-mod-3-project-v2-1/blob/master/module_3_project_rubric.pdf). _Note: On-campus students may have different requirements, please speak with your instructor._ 
-
-
-## Citation
-
-1. "What is the CRISP-DM Methodology?" Smart Vision Europe. Available at: https://www.sv-europe.com/crisp-dm-methodology/

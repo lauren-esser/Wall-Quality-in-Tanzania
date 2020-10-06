@@ -69,16 +69,20 @@ Data was obtained from Taarifa and the Tanzanian Ministry of Water. Found [here]
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vTOgQ6kYC7QYYMmH69ps83eFd1qdK70Wtz0_CSB7u30AR4q82NJr4WzkLTRdSZgX2NbO4QOTSuVX88K/pub?w=460&amp;h=300">
 
 %%HTML 
-<div class='tableauPlaceholder' id='viz1601559908930' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fu&#47;FunctionalityofWaterPumpsUsingLatitudeandLongitude&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FunctionalityofWaterPumpsUsingLatitudeandLongitude&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fu&#47;FunctionalityofWaterPumpsUsingLatitudeandLongitude&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1601559908930');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+<div class='tableauPlaceholder' id='viz1601559908930' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fu&#47;FunctionalityofWaterPumpsUsingLatitudeandLongitude&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FunctionalityofWaterPumpsUsingLatitudeandLongitude&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fu&#47;FunctionalityofWaterPumpsUsingLatitudeandLongitude&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                                   </script>
 
 ### Scrub:
 In the Scrub section of my notebook I took care of cleaning the data and observing which columns were actually needed to create my models. When reading over the column descriptions (given above) I noticed that many columns covered the exact same material. Therefore I went through and looked at null values, value_counts, and how specific each column was in order to determine which of the repetitive columns were kept. During this section I dropped scheme_name, waterpoint_type, source_type, source_class, quantity_group, quality_group, payment, date_recorded, management, extraction_type, region_code, district_code, and extraction_type_class. While that looks like a high number of columns, the columns that were left covered the same information as those that were dropped from the dataset. Once I dropped unneeded columns I dove deeper into other columns. Below I have listed other action points I took during the Scrub section of my Jupyter notebook:
 
-> Construction year had 20,709 water pumps without a year listed. I assumed these were built before they began recording construction date and set these all to 1959. 
-> Public Meeting had nulls so I went with the majority and assumed that wells were in public meeting locations. 
-> Population I replaced 0 with the median of all of the water pumps. 
-> To take care of the remaining nulls I replaced subvillage and scheme_management nulls with "Unknown".
-> Permit had two groups True and 25.0, I assumed 25.0 meant False and switched 25.0 to read False
+- Construction year had 20,709 water pumps without a year listed. I assumed these were built before they began recording construction date and set these all to 1959. 
+
+- Public Meeting had nulls so I went with the majority and assumed that wells were in public meeting locations. 
+
+- Population I replaced 0 with the median of all of the water pumps. 
+
+- To take care of the remaining nulls I replaced subvillage and scheme_management nulls with "Unknown".
+
+- Permit had two groups True and 25.0, I assumed 25.0 meant False and switched 25.0 to read False
 
 ### Explore:
 During the Explore section of my notebook I took time to create visuals in order to help me understand my remaining dataset better. Within this time I also scaled my numerial columns, I did not end up using my scaled columns since the Models I created do not call for scaling. Next, I took a look at my categorical columns. Here I realized that if I used pd.get_dummies on all my categorical columns that my data set would be way too large. Therefore I dropped additional categorical columns that either had similar information in another column, or I thought did not play a role in the functionality of the well. Example: Funder. Whomever raised the money had no role in inserting or maintaining the well so I was comfortable dropping this column. Installer column is one that I found to be very important, but there were over 100 installers listed. I made the decision to keep any installer that built over 1000 wells and to group the remainder in an "Unknown" group. The code shown below is what I used to execute this step in the process: 
@@ -114,14 +118,22 @@ To interpret my model I chose to use SHAP as a visualization technique. Below is
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vQu3rUc5nH_gIUQB8IMq_VuA73W9vHtniS5n2cMcUJrVQnWHHWjSyCNll0_rGyLmtvBVzannrp0zZPE/pub?w=592&amp;h=459">
 
 Class 0 = Functional
+
 Class 1 = Functional Needs Repair
+
 Class 2 = Not Functional
 
 Based on the graph above we can see that Quantity Dry, Quantity_Enough, Extraction_type_gravity, Waterpoint_type_group_other, Extraction_type_other, and Construction Year have the greatest impact on the well's functionality. 
 
 
 ## Recommendations
+1. Ensure water pumps have access to a water source. (Could insert water gauge into pumps.)
 
+2. Check wells that use extractino type of Gravity, Nira, or are labeled as "Other".
+
+3. Check wells that use waterpoint type of Handpump, Standpipe, or are labeled as "Other".
+
+4. Inspect pumps that are built before 1965 or have no construction year listed.
 
 
 ## For Further Information

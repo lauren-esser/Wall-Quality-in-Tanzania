@@ -66,7 +66,7 @@ Using data from Taarifa and the Tanzanian Ministry of Water I created a model th
 ### Obtain:
 Data was obtained from Taarifa and the Tanzanian Ministry of Water. Found [here](https://www.drivendata.org/competitions/7/pump-it-up-data-mining-the-water-table/page/23/) In the Obtain section of my notebook I uploaded Training Set Labels and Training Set Values csv using Pandas. I then took time to observe the number of unique groups per data frame and inspect information. The data labels table listed the id and status_group of the wells (Functional, Functional, Needs Repair, Non-Functional). The data values table had 49 different columns containing 3 floats, 7 int, and 30 object columns. 
 
-![](documents/github/Mod4/functionality.png)
+![](./Documents/github/Mod4/functionality.png)
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vTOgQ6kYC7QYYMmH69ps83eFd1qdK70Wtz0_CSB7u30AR4q82NJr4WzkLTRdSZgX2NbO4QOTSuVX88K/pub?w=460&amp;h=300">
 
@@ -100,39 +100,39 @@ Looking at my dataset I thought that Classification Trees, Bagged Trees, or Rand
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vRU9oOnbbAdQS3jns-DJlnw3PVIjHj0nd67_q9caGVd9as_MmEXS0YKsDUxIsSiHCSXaOqubLsyd90n/pub?w=623&amp;h=271">
 
-![](documents/github/Mod3/vanillaconf.png)
+![](./Documents/github/Mod3/vanillaconf.png)
 
-![](documents/github/Mod3/vanillaroc.png)
+![](./Documents/github/Mod3/vanillaroc.png)
 
-![](documents/github/Mod3/vanillafi.png)
+![](./Documents/github/Mod3/vanillafi.png)
 
 
 Following my Vanilla Decision Tree Model I used GridSearch CV in order to find the best parameters. Parameters selected were class_weight = 'balanced', max_depth = 100, min_samples_split = 2, criterion = 'entropy'. These parameters increased my macro avg precision by 1%, testing accuracy by .33%, and everything else was pretty much the same. Therefore I decided to move onto Random Forests. My Vanilla Random Forest already showed great improvement upon my Decision Tree. 
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vSm9jCI_5RJ8Tdr2TsKWgdxj5zLpMdggcSBxNaUyu_zH2vYPxn4oHwVuI9_UqBnqvzCC_-cALYSumgQ/pub?w=625&amp;h=267">
 
-![](documents/github/Mod3/tconf.png)
+![](./Documents/github/Mod3/tconf.png)
 
-![](documents/github/Mod3/troc.png)
+![](./Documents/github/Mod3/troc.png)
 
-![](documents/github/Mod3/tfi.png)
+![](./Documents/github/Mod3/tfi.png)
 
 I once again chose to use GridSearchCV in order to find the best parameters for my Random Forest Model. The optimal parameters were class weight= 'balanced', criterion = 'entropy', max_depth = 70m and min_samples_split = 3.
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vQaJCY85luPHIQ-kcVBTwgjO3svrYkOlsEi239TJmad-oYlcuf9VWonRdzw-PbuJwwtjqYDo_x21ED7/pub?w=638&amp;h=269">
 
-![](documents/github/Mod3/rfconf.png)
+![](./Documents/github/Mod3/rfconf.png)
 
-![](documents/github/Mod3/rffi.png)
+![](./Documents/github/Mod3/rffi.png)
 
-![](documents/github/Mod3/rffii.png)
+![](./Documents/github/Mod3/rffii.png)
 
 
 ### Interpret
 
 To interpret my model I chose to use SHAP as a visualization technique. Below is a summary plot showing which factors impact the functionality of the wells the most. 
 
-![](documents/github/Mod3/shap.png)
+![](./Documents/github/Mod3/shap.png)
 
 
 Class 0 = Functional

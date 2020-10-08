@@ -66,7 +66,7 @@ Using data from Taarifa and the Tanzanian Ministry of Water I created a model th
 ### Obtain:
 Data was obtained from Taarifa and the Tanzanian Ministry of Water. Found [here](https://www.drivendata.org/competitions/7/pump-it-up-data-mining-the-water-table/page/23/) In the Obtain section of my notebook I uploaded Training Set Labels and Training Set Values csv using Pandas. I then took time to observe the number of unique groups per data frame and inspect information. The data labels table listed the id and status_group of the wells (Functional, Functional, Needs Repair, Non-Functional). The data values table had 49 different columns containing 3 floats, 7 int, and 30 object columns. 
 
-![](./Documents/github/Mod4/functionality.png)
+![](Documents/github/Mod4/functionality.png)
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vTOgQ6kYC7QYYMmH69ps83eFd1qdK70Wtz0_CSB7u30AR4q82NJr4WzkLTRdSZgX2NbO4QOTSuVX88K/pub?w=460&amp;h=300">
 
@@ -100,9 +100,9 @@ Looking at my dataset I thought that Classification Trees, Bagged Trees, or Rand
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vRU9oOnbbAdQS3jns-DJlnw3PVIjHj0nd67_q9caGVd9as_MmEXS0YKsDUxIsSiHCSXaOqubLsyd90n/pub?w=623&amp;h=271">
 
-![](./Documents/github/Mod3/vanillaconf.png)
+![](/Documents/github/Mod3/vanillaconf.png)
 
-![](./Documents/github/Mod3/vanillaroc.png)
+![](laurenesser/Documents/github/Mod3/vanillaroc.png)
 
 ![](./Documents/github/Mod3/vanillafi.png)
 

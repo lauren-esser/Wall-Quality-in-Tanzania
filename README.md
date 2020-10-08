@@ -66,9 +66,8 @@ Using data from Taarifa and the Tanzanian Ministry of Water I created a model th
 ### Obtain:
 Data was obtained from Taarifa and the Tanzanian Ministry of Water. Found [here](https://www.drivendata.org/competitions/7/pump-it-up-data-mining-the-water-table/page/23/) In the Obtain section of my notebook I uploaded Training Set Labels and Training Set Values csv using Pandas. I then took time to observe the number of unique groups per data frame and inspect information. The data labels table listed the id and status_group of the wells (Functional, Functional, Needs Repair, Non-Functional). The data values table had 49 different columns containing 3 floats, 7 int, and 30 object columns. 
 
-![](Documents/github/Mod4/functionality.png)
+<img src="https://docs.google.com/drawings/d/e/2PACX-1vT7eYVQHqxnYlx-nvteaIlhevc0QXKLL2KogU4MuJqMCdgNVY6sUZUGEKF77Uw3hc24cUGYo4TqCONF/pub?w=860&amp;h=576">
 
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vTOgQ6kYC7QYYMmH69ps83eFd1qdK70Wtz0_CSB7u30AR4q82NJr4WzkLTRdSZgX2NbO4QOTSuVX88K/pub?w=460&amp;h=300">
 
 %%HTML 
 <div class='tableauPlaceholder' id='viz1601559908930' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fu&#47;FunctionalityofWaterPumpsUsingLatitudeandLongitude&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FunctionalityofWaterPumpsUsingLatitudeandLongitude&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fu&#47;FunctionalityofWaterPumpsUsingLatitudeandLongitude&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en' /><param name='filter' value='publish=yes' /></object></div>
@@ -100,40 +99,33 @@ Looking at my dataset I thought that Classification Trees, Bagged Trees, or Rand
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vRU9oOnbbAdQS3jns-DJlnw3PVIjHj0nd67_q9caGVd9as_MmEXS0YKsDUxIsSiHCSXaOqubLsyd90n/pub?w=623&amp;h=271">
 
-![](/Documents/github/Mod3/vanillaconf.png)
+<img src="https://docs.google.com/drawings/d/e/2PACX-1vQOdzM_ckDYX_qVIcuA_iHhWEEh1a2F-AAAe_ilYfFh8rah3QHBoI-wg7AacDzgr2rtkkExe9sUGrmc/pub?w=621&amp;h=614">
 
-![](laurenesser/Documents/github/Mod3/vanillaroc.png)
-
-![](./Documents/github/Mod3/vanillafi.png)
+<img src="https://docs.google.com/drawings/d/e/2PACX-1vR6tJJ0JbUaCXloblQHvSY3M_NJOrmqNIaxqNRyuaImw-saQuTE8f7a-laVTMVlAuCmLV7UBblYwEYf/pub?w=775&amp;h=461">
 
 
 Following my Vanilla Decision Tree Model I used GridSearch CV in order to find the best parameters. Parameters selected were class_weight = 'balanced', max_depth = 100, min_samples_split = 2, criterion = 'entropy'. These parameters increased my macro avg precision by 1%, testing accuracy by .33%, and everything else was pretty much the same. Therefore I decided to move onto Random Forests. My Vanilla Random Forest already showed great improvement upon my Decision Tree. 
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vSm9jCI_5RJ8Tdr2TsKWgdxj5zLpMdggcSBxNaUyu_zH2vYPxn4oHwVuI9_UqBnqvzCC_-cALYSumgQ/pub?w=625&amp;h=267">
 
-![](./Documents/github/Mod3/tconf.png)
+<img src="https://docs.google.com/drawings/d/e/2PACX-1vRa8estzywcxfBWg2lP2_CcRBhq_aIRjNLuZF1j_lkBsSa6phrrHIHknedBK5J9escz_wCAgxurJbuI/pub?w=648&amp;h=645">
 
-![](./Documents/github/Mod3/troc.png)
-
-![](./Documents/github/Mod3/tfi.png)
+<img src="https://docs.google.com/drawings/d/e/2PACX-1vSzPJnGB-fAbACotRouFvwheKUJyRvIaT0ADxLo4XrrfJ3PDcQW8m2hSsCkyb6Lhwh0JWXCwGZsSGeA/pub?w=780&amp;h=449">
 
 I once again chose to use GridSearchCV in order to find the best parameters for my Random Forest Model. The optimal parameters were class weight= 'balanced', criterion = 'entropy', max_depth = 70m and min_samples_split = 3.
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vQaJCY85luPHIQ-kcVBTwgjO3svrYkOlsEi239TJmad-oYlcuf9VWonRdzw-PbuJwwtjqYDo_x21ED7/pub?w=638&amp;h=269">
 
-![](./Documents/github/Mod3/rfconf.png)
+<img src="https://docs.google.com/drawings/d/e/2PACX-1vTZHJ2AtAIAThHXGprCGFDhsP9qK0zGKpD5EDVWsyzl5CQBlWWUM9zu0__-mtDH6wrXIh2dF0RnJpAR/pub?w=632&amp;h=624">
 
-![](./Documents/github/Mod3/rffi.png)
-
-![](./Documents/github/Mod3/rffii.png)
+<img src="https://docs.google.com/drawings/d/e/2PACX-1vTMZ8wfN26i945RZ4y9CkOyjM0j5hkjleFzBef-VTjmZUzGi66H9--2ENuflCEd_nJjT6zTJpAHto3d/pub?w=779&amp;h=406">
 
 
 ### Interpret
 
 To interpret my model I chose to use SHAP as a visualization technique. Below is a summary plot showing which factors impact the functionality of the wells the most. 
 
-![](./Documents/github/Mod3/shap.png)
-
+<img src="https://docs.google.com/drawings/d/e/2PACX-1vTf7Svn_80_5yN4ADwc9dvFHmrOEVpNnBXaDi8Q6oFIbkt94f4O21cHHEpGqLFoQA8aiKa_I-4F64q5/pub?w=733&amp;h=570">
 
 Class 0 = Functional
 

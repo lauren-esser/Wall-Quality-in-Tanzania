@@ -66,10 +66,13 @@ Using data from Taarifa and the Tanzanian Ministry of Water I created a model th
 ### Obtain:
 Data was obtained from Taarifa and the Tanzanian Ministry of Water. Found [here](https://www.drivendata.org/competitions/7/pump-it-up-data-mining-the-water-table/page/23/) In the Obtain section of my notebook I uploaded Training Set Labels and Training Set Values csv using Pandas. I then took time to observe the number of unique groups per data frame and inspect information. The data labels table listed the id and status_group of the wells (Functional, Functional, Needs Repair, Non-Functional). The data values table had 49 different columns containing 3 floats, 7 int, and 30 object columns. 
 
+![](documents/github/Mod4/functionality.png)
+
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vTOgQ6kYC7QYYMmH69ps83eFd1qdK70Wtz0_CSB7u30AR4q82NJr4WzkLTRdSZgX2NbO4QOTSuVX88K/pub?w=460&amp;h=300">
 
 %%HTML 
-<div class='tableauPlaceholder' id='viz1601559908930' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fu&#47;FunctionalityofWaterPumpsUsingLatitudeandLongitude&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FunctionalityofWaterPumpsUsingLatitudeandLongitude&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fu&#47;FunctionalityofWaterPumpsUsingLatitudeandLongitude&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                                   </script>
+<div class='tableauPlaceholder' id='viz1601559908930' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fu&#47;FunctionalityofWaterPumpsUsingLatitudeandLongitude&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FunctionalityofWaterPumpsUsingLatitudeandLongitude&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fu&#47;FunctionalityofWaterPumpsUsingLatitudeandLongitude&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en' /><param name='filter' value='publish=yes' /></object></div>
+
 
 ### Scrub:
 In the Scrub section of my notebook I took care of cleaning the data and observing which columns were actually needed to create my models. When reading over the column descriptions (given above) I noticed that many columns covered the exact same material. Therefore I went through and looked at null values, value_counts, and how specific each column was in order to determine which of the repetitive columns were kept. During this section I dropped scheme_name, waterpoint_type, source_type, source_class, quantity_group, quality_group, payment, date_recorded, management, extraction_type, region_code, district_code, and extraction_type_class. While that looks like a high number of columns, the columns that were left covered the same information as those that were dropped from the dataset. Once I dropped unneeded columns I dove deeper into other columns. Below I have listed other action points I took during the Scrub section of my Jupyter notebook:
@@ -95,27 +98,42 @@ Once taking this step I used pd.get_dummies on my categorical columns in order t
 ### Model:
 Looking at my dataset I thought that Classification Trees, Bagged Trees, or Random Forests would build the best model since I was looking to render feature importance on what specifically impacts the well's functionality. I began with a Vanilla Decision Tree as a baseline model. 
 
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vSOgu6BRFRrAlQQeDtMp0k0IqksTqMZJKRrwSjXcKeof3TcZJV1Vq4H8JRfXYZuE0Z-DfuRH7Rw3F1F/pub?w=960&amp;h=720">
+<img src="https://docs.google.com/drawings/d/e/2PACX-1vRU9oOnbbAdQS3jns-DJlnw3PVIjHj0nd67_q9caGVd9as_MmEXS0YKsDUxIsSiHCSXaOqubLsyd90n/pub?w=623&amp;h=271">
+
+![](documents/github/Mod3/vanillaconf.png)
+
+![](documents/github/Mod3/vanillaroc.png)
+
+![](documents/github/Mod3/vanillafi.png)
+
 
 Following my Vanilla Decision Tree Model I used GridSearch CV in order to find the best parameters. Parameters selected were class_weight = 'balanced', max_depth = 100, min_samples_split = 2, criterion = 'entropy'. These parameters increased my macro avg precision by 1%, testing accuracy by .33%, and everything else was pretty much the same. Therefore I decided to move onto Random Forests. My Vanilla Random Forest already showed great improvement upon my Decision Tree. 
 
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vSLVvWUq3nY8u_lcuTyTF31PYROEjBs1TmXA2WrhUzrw1IFRkEo25rlPM5eCxBXjCSl4KvzJ8g7pIdm/pub?w=689&amp;h=703">
+<img src="https://docs.google.com/drawings/d/e/2PACX-1vSm9jCI_5RJ8Tdr2TsKWgdxj5zLpMdggcSBxNaUyu_zH2vYPxn4oHwVuI9_UqBnqvzCC_-cALYSumgQ/pub?w=625&amp;h=267">
 
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vQriFQmu1t1dhC5XJc3KkeM86klmoNyRrQgFcCXNdHAfb-2ZiINSb-N1SklDzFn8KYRmfhvzt8rhs3F/pub?w=738&amp;h=399">
+![](documents/github/Mod3/tconf.png)
+
+![](documents/github/Mod3/troc.png)
+
+![](documents/github/Mod3/tfi.png)
 
 I once again chose to use GridSearchCV in order to find the best parameters for my Random Forest Model. The optimal parameters were class weight= 'balanced', criterion = 'entropy', max_depth = 70m and min_samples_split = 3.
 
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vRYLMGAJKEhZj9QCW7QFtUgVCIhsU7ZwoduLoBeHMerYPSDtuG6d3gEeicI0YG9CimyJTZzNWWG6rtN/pub?w=637&amp;h=814">
+<img src="https://docs.google.com/drawings/d/e/2PACX-1vQaJCY85luPHIQ-kcVBTwgjO3svrYkOlsEi239TJmad-oYlcuf9VWonRdzw-PbuJwwtjqYDo_x21ED7/pub?w=638&amp;h=269">
 
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vQ4X6ThGV_ZB6r5pn5puCJE51uFCG50LY_iC5zBzhMcWEoYgMpTTEk4hRwnBZot3TCcTo9VLZlyYeyd/pub?w=745&amp;h=394">
+![](documents/github/Mod3/rfconf.png)
 
-The different metrics used to evaluate my model is 
+![](documents/github/Mod3/rffi.png)
+
+![](documents/github/Mod3/rffii.png)
+
 
 ### Interpret
 
 To interpret my model I chose to use SHAP as a visualization technique. Below is a summary plot showing which factors impact the functionality of the wells the most. 
 
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vQu3rUc5nH_gIUQB8IMq_VuA73W9vHtniS5n2cMcUJrVQnWHHWjSyCNll0_rGyLmtvBVzannrp0zZPE/pub?w=592&amp;h=459">
+![](documents/github/Mod3/shap.png)
+
 
 Class 0 = Functional
 

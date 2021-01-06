@@ -145,6 +145,30 @@ Based on the graph above we can see that Quantity Dry, Quantity_Enough, Extracti
 
 4. Inspect pumps that are built before 1965 or have no construction year listed.
 
+## Reproduction Instructions
+This project uses:
+* Anaconda, a package and environmental management tool
+* Python 3.6.9
+* Numpy
+* Matplotlib
+* Sklearn
+* Missingo
+* Yellowbrick
+
+If you would like to follow the analysis locally and have the above tools:
+
+1. Fork and clone this repository
+2. Go to datadriven.org (Link above) and download the data files.
+
+You should then be able to run the exploration and analysis in the provided Well_ID-Notebook.
+
 
 ## For Further Information
-Please review the narrative of my analysis in my jupyter notebook or review my presentation. For any additional questions please contact via email at CLEsser02@gmail.com or Lauren Esser on LinkedIn
+Please review the narrative of my analysis in my jupyter notebook or review my presentation. For any additional questions please contact via email at Lauren.Esser02@gmail.com or via [LinkedIn](https://www.linkedin.com/in/laurenesser/)
+
+
+## Repository Structure:
+* README.md <- README for reviewers of this project.
+* Well-ID-Notebook.ipynb <- narrative documentation of analysis in jupyter notebook
+* Presentation.pdf <- pdf version of project presentation
+* PumpData <- data folder, which is not included in this repository
